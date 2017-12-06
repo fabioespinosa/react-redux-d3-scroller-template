@@ -7,6 +7,10 @@ import * as d3 from 'd3';
 import { changeVisualization, updateProgress } from '../ducks/home';
 import './App.css';
 
+import Title from './sections/title';
+import RetweetsBarGraph from './sections/retweets_bar_graph';
+import FollowerLine from './sections/follower_line';
+
 var sections = [];
 // Posiciones en relación a la primera sección
 var sectionPositions = [];
@@ -28,7 +32,7 @@ class App extends Component {
 
 	updateSectionPositions() {
 		var startPos;
-		var sections = document.querySelectorAll('.step');
+		var sections = document.querySelectorAll('.Section');
 		sections.forEach((d, i) => {
 			var top = d.getBoundingClientRect().top;
 			if (i === 0) {
@@ -36,6 +40,7 @@ class App extends Component {
 			}
 			sectionPositions.push(top - startPos);
 		});
+		console.log(sectionPositions);
 	}
 
 	onScroll() {
@@ -61,6 +66,14 @@ class App extends Component {
 			<div className="App">
 				<h1>Bienvenidos a las visualizaciones de sus candidatos</h1>
 				<Visualization {...this.props} />
+				{/* SECTIONS: */}
+				<Title />
+				<RetweetsBarGraph />
+				<FollowerLine />
+				<FollowerLine />
+				<FollowerLine />
+				<FollowerLine />
+				<FollowerLine />
 			</div>
 		);
 	}

@@ -13,11 +13,20 @@ export const updateProgress = newProgress => ({
 
 const INITIAL_STATE = {
 	currentVizIndex: 0,
-	currentProgress: 0
+	currentProgress: 0,
+	size: {
+		width: 800,
+		height: 600,
+		margin: {
+			top: 30,
+			left: 30,
+			bottom: 40,
+			right: 10
+		}
+	}
 };
 
 export default function(state = INITIAL_STATE, action) {
-	console.log(action);
 	switch (action.type) {
 		case CHANGE_VISUALIZATION:
 			return { ...state, currentVizIndex: action.payload };

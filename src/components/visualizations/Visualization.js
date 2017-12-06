@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { fetchData } from '../../ducks/data';
 import Viz1 from './viz1';
 import Viz2 from './viz2';
 import Viz3 from './viz3';
@@ -11,49 +14,32 @@ import Viz9 from './viz9';
 import Viz10 from './viz10';
 
 class Visualization extends Component {
+	componentWillMount() {
+		this.props.fetchData();
+	}
+
 	render() {
-		const altura = {
-			height: '800px'
+		var style = {
+			position: 'fixed',
+			top: 0,
+			left: 0,
+			width: '800',
+			height: '800'
 		};
+		const { width, height, margin_top, margin_right, margin_bottom, margin_left } = this.props;
 		return (
 			<div>
-				<svg>
+				<svg className="Visualization" style={style}>
 					<Viz1 />
-				</svg>
-				<div style={altura}>espacio</div>
-				<svg>
+					{this.props.datos && <Viz2 />}
 					<Viz2 />
-				</svg>
-				<div style={altura}>Espacio</div>
-				<svg>
 					<Viz3 />
-				</svg>
-				<div style={altura}>Espacio</div>
-				<svg>
 					<Viz4 />
-				</svg>
-				<div style={altura}>Espacio</div>
-				<svg>
 					<Viz5 />
-				</svg>
-				<div style={altura}>Espacio</div>
-				<svg>
 					<Viz6 />
-				</svg>
-				<div style={altura}>Espacio</div>
-				<svg>
 					<Viz7 />
-				</svg>
-				<div style={altura}>Espacio</div>
-				<svg>
 					<Viz8 />
-				</svg>
-				<div style={altura}>Espacio</div>
-				<svg>
 					<Viz9 />
-				</svg>
-				<div style={altura}>Espacio</div>
-				<svg>
 					<Viz10 />
 				</svg>
 			</div>
@@ -61,4 +47,15 @@ class Visualization extends Component {
 	}
 }
 
-export default Visualization;
+const mapStateToProps = state => ({
+	width: state.home.size.width,
+	height: state.home.size.height,
+	margin_top: state.home.size.margin.top,
+	margin_right: state.home.size.margin.right,
+	margin_bottom: state.home.size.margin.bottom,
+	margin_left: state.home.size.margin.left,
+
+	datos: state.datos
+});
+
+export default connect(mapStateToProps, { fetchData })(Visualization);
